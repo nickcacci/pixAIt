@@ -31,6 +31,11 @@
 - **Classic Mode:** First player to reach **30 points** wins.
 - **Quick Match Mode:** Configurable number of rounds (e.g., 3 or 5 rounds) for fast casual sessions, live demonstrations, and automated E2E testing.
 
+### 5. ☁️ Serverless Client & Self-Hosted Dockerized Server
+
+- **Serverless Web Client:** Deployed as a static Single-Page Application (SPA) on **GitHub Pages**, requiring zero installation on player smartphones or the host display.
+- **Self-Hosted, Dockerized Game Server:** Distributed as a ready-to-run container image on **GitHub Container Registry (`ghcr.io`)**, enabling anyone to self-host their own game server locally or on a private machine with a single Docker command while retaining full control over custom decks, game state, and AI API keys.
+
 ---
 
 ## 🎲 Game Flow & Scoring Rules
