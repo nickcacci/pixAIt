@@ -37,11 +37,11 @@
 
 ```mermaid
 stateDiagram-v2
-    [*] --> LOBBY : Host creates room (QR / Code)
-    LOBBY --> STORYTELLER_TURN : Start Game (Min 3 players / bots)
-    STORYTELLER_TURN --> PLAYERS_SUBMISSION : Storyteller picks 1 card & submits clue
+    [*] --> LOBBY : Host creates room (QR or Code)
+    LOBBY --> STORYTELLER_TURN : Start Game (Min 3 players or bots)
+    STORYTELLER_TURN --> PLAYERS_SUBMISSION : Storyteller picks 1 card and submits clue
     PLAYERS_SUBMISSION --> VOTING : Other players pick 1 decoy card each
-    VOTING --> SCORING_REVEAL : Cards shuffled on Board; non-storytellers vote
+    VOTING --> SCORING_REVEAL : Cards shuffled on Board, non-storytellers vote
     SCORING_REVEAL --> STORYTELLER_TURN : Next round (if target not reached)
     SCORING_REVEAL --> GAME_OVER : Target score or max rounds reached
     GAME_OVER --> LOBBY : Play Again
