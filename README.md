@@ -1,8 +1,8 @@
-# 🎨 pixAIt — AI-Powered Multiplayer Storytelling Card Game
+# 🎨 pixAIt — AI-Powered Multiplayer Illustrated Card Game
 
 > **Software Quality and Project Development (A.Y. 2026/2027)** — University of Catania (`unict-sqpd`, `unict-sqpd-2026-2027`)
 
-**pixAIt** is a smart, web-based multiplayer visual storytelling and social deduction card game designed around a **dual-screen party experience**. Players gather around a **Central Board** (displayed on a laptop, TV, or projector) and connect using their **smartphones** as private controllers to play illustrated cards, craft enigmatic clues, and vote in real time—enhanced by **generative AI decks** and **intelligent AI bot players**.
+**pixAIt** is a web-based multiplayer party game with illustrated cards. Each round, one player secretly chooses a card and gives a clue, the other players submit a decoy card from their hand, and everyone votes to guess the original card. Players gather around a **Central Board** (on a laptop, TV, or projector) and use their **smartphones** as private controllers in real time—complete with **AI bot players** , **customizable card decks** and **live-generated** decoy cards.
 
 ---
 
@@ -16,15 +16,16 @@
 
 ### 2. 🤖 Smart AI Integration
 
-- **AI Bot Players (`PixAI`):** Since social deduction card mechanics require at least 3–4 participants to keep voting unpredictable, hosts can add **AI Bot Players** to any lobby. Bots can:
-  - Act as the **Storyteller**, generating creative, lateral-thinking clues from a card's visual description.
-  - Act as **Guessers**, selecting the most semantically fitting decoy card from their hand and voting on revealed cards.
+- **AI Bot Players (`PixAI`):** Since a round requires at least 3–4 participants to keep voting unpredictable, hosts can add **AI Bot Players** to any lobby. Bots can:
+  - Act as the **Storyteller**, generating creative clues from a card's visual description.
+  - Act as **Guessers**, selecting the most fitting decoy card from their hand and voting on revealed cards.
+
+### 3. 🃏 Built-In & Custom Decks (KISS File Storage)
+
+- **Built-In & Downloadable Decks:** Ships with ready-to-play card decks available out of the box.
+- **Simple Folder-Based Deck Format:** Follows the KISS principle—no database required. Each deck is a standard folder of image files paired with an optional metadata file (e.g., author, creation date, card descriptions).
+- **In-Game Card Download & Custom Deck Import:** Players can download cards played or generated during a match and reuse them later, or import custom image decks directly into a lobby.
 - **AI Dream Deck Generator:** Alongside a curated built-in deck (for instant offline and CI play), players can generate custom thematic card decks on the fly (e.g., *Cyberpunk Sicily*, *Pixel Art Mythology*, *Baroque Dreams*) powered by generative AI and persisted in the database.
-
-### 3. 🃏 Custom Decks & Card Collection
-
-- **In-Game Card Download & Export:** Players can download favorite cards as they are played during a match or export full decks compiled from past game sessions.
-- **Custom Deck Import:** Hosts can import custom card decks—whether saved from previous matches or downloaded online—directly into a lobby to play with personalized or community-created card collections.
 
 ### 4. ⚡ Configurable Match Modes
 
@@ -67,17 +68,19 @@ stateDiagram-v2
 
 ## 🏗️ High-Level Architecture
 
-The system combines a static, globally accessible web frontend with a containerized Python backend for real-time state synchronization, persistence, and AI integration:
+The system combines a static, globally accessible web frontend with a containerized Python backend for real-time state synchronization, file-based deck management, and AI integration:
 
 1. **Web Frontend (Hosted on GitHub Pages):**
    - Responsive Single-Page Application (SPA) serving both the **Board View** (`/board/:roomCode`) and the **Mobile Controller View** (`/play/:roomCode`).
    - Built and deployed automatically via GitHub Actions to **GitHub Pages**.
 2. **Real-Time Game Backend (Python & Docker):**
-   - Authoritative game engine managing room state machines, player sessions, real-time WebSocket synchronization, deck persistence, and external AI service calls.
+   - Authoritative game engine managing room state machines, player sessions, real-time WebSocket synchronization, custom deck loading, and external AI service calls.
    - Packaged as a multi-architecture Docker image and published automatically to **GitHub Container Registry (`ghcr.io`)**.
-3. **Persistence & External Services:**
-   - **Database:** Stores card decks, AI-generated cards, and match history.
-   - **AI Service Layer:** Interfaces with external LLM / Image Generation APIs with a deterministic mock fallback for offline development and CI pipelines.
+3. **Storage & External Services:**
+
+- **Database:** Stores match data.
+- **File-Based Deck Storage:** Stores built-in and custom card decks as plain image directories with optional JSON metadata, keeping self-hosting lightweight and dependency-free.
+- **AI Service Layer:** Interfaces with external AI APIs with a deterministic mock fallback for offline development and CI pipelines.
 
 ---
 
